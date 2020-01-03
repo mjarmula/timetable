@@ -1,5 +1,19 @@
 pl:
   apps:
+    hardware:
+      add_new: Dodaj sprzęt
+      type: Typ
+      manufacturer: Producent
+      model: Model
+      serial_number: Numer seryjny
+      field:
+        add_new: Dodaj pole
+        name: Nazwa
+        value: Wartość
+      types:
+        screen: Monitor
+        pc: Komputer
+        laptop: Laptop
     header:
       login: Logowanie
       username: Użytkownik
@@ -223,6 +237,7 @@ pl:
       illness: Ch
       care: Op
     vacation_periods: Okresy urlopowe
+    hardware: Mój sprzęt
   errors:
     format: "%{attribute} %{message}"
     messages:

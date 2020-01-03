@@ -1,5 +1,19 @@
 en:
   apps:
+    hardware:
+      add_new: Add hardware
+      type: Type
+      manufacturer: Manufacturer
+      model: Model
+      serial_number: serial Number
+      field:
+        add_new: Add field
+        name: Name
+        value: Value
+      types:
+        screen: Screen
+        pc: PC
+        laptop: Laptop
     header:
       login: Login
       username: Username
@@ -223,6 +237,7 @@ en:
       illness: Ch
       care: Op
     vacation_periods: Vacation Periods
+    hardware: My hardware
   activerecord:
     errors:
       models:

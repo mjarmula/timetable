@@ -22,6 +22,7 @@ import Vacations from './time_table/vacations/vacations';
 import Staff from './time_table/staff/staff';
 import VacationPeriods from './time_table/vacation_periods/vacation_periods';
 import EditVacationPeriod from './time_table/vacation_periods/edit_vacation_period';
+import HardwareList from './time_table/hardware/hardware_list';
 
 class TimeTable extends React.Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class TimeTable extends React.Component {
             <Route path="/vacation_periods/edit/:id" component={EditVacationPeriod} />
             <Route path="/timesheet" component={Timesheet} />
             <Route path="/vacations" component={Vacations} />
+            <Route path="/hardware" component={HardwareList} />
           </div>
         </div>
       </BrowserRouter>

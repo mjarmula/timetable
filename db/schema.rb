@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191010094744) do
+ActiveRecord::Schema.define(version: 20191218130812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,24 @@ ActiveRecord::Schema.define(version: 20191010094744) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_external_auths_on_project_id"
+  end
+
+  create_table "hardware_fields", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "value", null: false
+    t.bigint "hardware_id"
+    t.index ["hardware_id"], name: "index_hardware_fields_on_hardware_id"
+    t.index ["name", "hardware_id"], name: "index_hardware_fields_on_name_and_hardware_id", unique: true
+  end
+
+  create_table "hardwares", force: :cascade do |t|
+    t.string "type", default: "laptop", null: false
+    t.string "manufacturer", null: false
+    t.string "model", null: false
+    t.string "serial_number", null: false
+    t.bigint "user_id"
+    t.index ["serial_number"], name: "index_hardwares_on_serial_number", unique: true
+    t.index ["user_id"], name: "index_hardwares_on_user_id"
   end
 
   create_table "project_report_roles", force: :cascade do |t|
@@ -188,6 +206,8 @@ ActiveRecord::Schema.define(version: 20191010094744) do
   add_foreign_key "accounting_periods", "users", name: "accounting_periods_user_id_fk"
   add_foreign_key "accounting_periods_recounts", "users"
   add_foreign_key "external_auths", "projects"
+  add_foreign_key "hardware_fields", "hardwares"
+  add_foreign_key "hardwares", "users"
   add_foreign_key "project_report_roles", "project_reports"
   add_foreign_key "project_report_roles", "users"
   add_foreign_key "project_reports", "projects"

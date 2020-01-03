@@ -25,6 +25,7 @@ const Navbar = () => (
       <NavLink className="item" to="/vacations">{I18n.t('common.vacations')}</NavLink>
       <div className="right menu">
         <div className="item" />
+        <NavLink className="item" to="/hardware">{I18n.t('common.hardware')}</NavLink>
         <NavLink className="item" to={`/users/edit/${currentUser.id}`}>
           {currentUser.fullName()}
         </NavLink>

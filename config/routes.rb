@@ -22,6 +22,10 @@ TimeTable::Application.routes.draw do
         get :by_users, on: :collection
       end
     end
+    resources :hardwares, only: %i[index create destroy update] do
+      get :types, on: :collection
+      resources :fields, controller: :hardware_fields, only: %i[create destroy]
+    end
     resources :users, only: %i[index show create update]
     resources :accounting_periods do
       collection do
