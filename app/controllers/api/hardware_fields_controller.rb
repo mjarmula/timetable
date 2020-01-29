@@ -11,6 +11,12 @@ module Api
       respond_with @field
     end
 
+    def update
+      @field = HardwareField.find(params[:id])
+      @field.update(hardware_fields_params)
+      respond_with @field
+    end
+
     def destroy
       @field = HardwareField.find(params[:id]).destroy
       respond_with @field

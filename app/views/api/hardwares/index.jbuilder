@@ -1,4 +1,6 @@
-json.array! @hardwares.each do |hardware|
+# frozen_string_literal: true
+
+json.array! @hardwares do |hardware|
   json.id hardware.id
   json.type hardware.type
   json.manufacturer hardware.manufacturer

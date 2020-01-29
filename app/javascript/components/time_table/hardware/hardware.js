@@ -19,7 +19,14 @@ export default class Hardware extends Component {
       model,
       serial_number,
       edit: false,
+      errors: {},
     };
+  }
+
+  static propTypes = {
+    handleDelete: PropTypes.func.isRequired,
+    hardware: PropTypes.object.isRequired,
+    fields: PropTypes.array.isRequired,
   }
 
   handleSave(hardware) {
@@ -30,10 +37,9 @@ export default class Hardware extends Component {
       this.setState({
         type, id, model, manufacturer, serial_number, edit: false,
       });
-    });
+    }).catch(response => this.setState({ errors: response.errors }));
   }
 
-  handle
 
   handleEdit() {
     this.setState({ edit: !this.state.edit });
@@ -41,45 +47,48 @@ export default class Hardware extends Component {
 
   render() {
     const {
-      type, model, serial_number, id, manufacturer, edit,
+      type, model, serial_number, id, manufacturer, edit, errors,
     } = this.state;
     const hardware = {
       type, model, serial_number, id, manufacturer,
     };
-    if (edit) { return (<EditHardware handleEdit={this.handleEdit} handleSave={this.handleSave} hardware={hardware} />); }
+    if (edit) { return (<EditHardware handleEdit={this.handleEdit} errors={errors} handleSave={this.handleSave} hardware={hardware} />); }
 
 
     return (
       <div className="col-md-4">
         <div className="card">
-          <div>
-            <label>{I18n.t('apps.hardware.type')}</label>
-            <p>{I18n.t(`apps.hardware.types.${type}`)}</p>
+          <nav className="relative-navigation">
+            <h3>
+              {manufacturer}
+              {' '}
+              {model}
+            </h3>
+            <ul className="items">
+              <li>
+                <button type="button" onClick={() => this.handleEdit()} className="ui circular icon button">
+                  <i className="pencil alternate icon" />
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => this.props.handleDelete(id)} className="ui circular negative icon button">
+                  <i className="trash alternate outline icon" />
+                </button>
+              </li>
+            </ul>
+          </nav>
+          <div className="ui two column grid">
+            <div className="column">
+              <label>{I18n.t('apps.hardware.type')}</label>
+              <p>{I18n.t(`apps.hardware.types.${type}`)}</p>
+            </div>
+            <div className="column">
+              <label>{I18n.t('apps.hardware.serial_number')}</label>
+              <p>{serial_number}</p>
+            </div>
           </div>
           <div className="ui divider" />
-          <div>
-            <label>
-              {I18n.t('apps.hardware.manufacturer')}
-            </label>
-            <p>{manufacturer}</p>
-          </div>
-          <div className="ui divider" />
-          <div>
-            <label>{I18n.t('apps.hardware.model')}</label>
-            <p>{model}</p>
-          </div>
-          <div className="ui divider" />
-          <div>
-            <label>{I18n.t('apps.hardware.serial_number')}</label>
-            <p>{serial_number}</p>
-          </div>
-          <div className="ui divider" />
-          <h3>Dodatkowe pola</h3>
           <FieldsList hardware_id={id} fields={this.props.fields} />
-          <div className="ui divider" />
-
-          <button type="button" onClick={() => this.handleEdit()} className="ui button">{I18n.t('common.edit')}</button>
-          <button type="button" onClick={() => this.props.handleDelete(id)} className="ui button negative">{I18n.t('common.destroy')}</button>
         </div>
       </div>
     );

@@ -1,0 +1,22 @@
+.relative-navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  align-items: flex-start;
+  position: relative;
+
+  .items {
+    list-style-type: none;
+    display: flex;
+    right: 15px;
+
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.padded-top {
+  padding-top: 10px;
+}

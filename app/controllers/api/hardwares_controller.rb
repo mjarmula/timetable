@@ -5,10 +5,12 @@ module Api
     respond_to :json
     def index
       @hardwares = hardwares
+      respond_with @hardwares
     end
 
     def types
       @types = Hardware.types.keys
+      respond_with @types
     end
 
     def update

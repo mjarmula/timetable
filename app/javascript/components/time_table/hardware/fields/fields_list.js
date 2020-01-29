@@ -17,13 +17,14 @@ export default class FieldsList extends Component {
     fields: this.props.fields || [],
     create_field_expanded: false,
     fields_expanded: false,
-  }
+  };
 
   static propTypes = {
-    fields: PropTypes.array,
-    create_field_expanded: PropTypes.bool,
-    fields_expanded: PropTypes.bool,
-  }
+    hardware_id: PropTypes.number.isRequired,
+    fields: PropTypes.array.isRequired,
+    create_field_expanded: PropTypes.bool.isRequired,
+    fields_expanded: PropTypes.bool.isRequired,
+  };
 
   handleCreateField(field) {
     Api.makePostRequest({
@@ -60,26 +61,61 @@ export default class FieldsList extends Component {
   }
 
   render() {
-    if (this.state.fields_expanded || this.state.fields.length === 0) {
+    if (!this.state.fields_expanded) {
       return (
-        <div>
-          {this.state.fields.map((field) => {
-            const { name, value, id } = field;
-            return (
-              <Field onDelete={this.handleDeleteField} key={id} id={id} name={name} value={value} />
-            );
-          })}
-          <div>
-            <CreateField toggleExpand={this.handleCreateFieldExpand} expanded={this.state.create_field_expanded} handleCreate={this.handleCreateField} />
-            {this.state.fields.length > 0
-              ? (<button onClick={() => this.handleFieldsExpand()} type="button" className="ui button">Close</button>) : '' }
-          </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <button
+            onClick={() => this.handleFieldsExpand()}
+            type="button"
+            className="circular ui basic icon button"
+
+          >
+            <i className="arrow down icon" />
+          </button>
         </div>
       );
     }
     return (
       <div>
-        <button onClick={() => this.handleFieldsExpand()} type="button" className="ui button">Expand</button>
+        <h4>Dodatkowe pola</h4>
+
+
+        {this.state.fields.map((field) => {
+          const { name, value, id } = field;
+          return (
+            <Field
+              hardware_id={this.props.hardware_id}
+              onDelete={this.handleDeleteField}
+              key={id}
+              id={id}
+              name={name}
+              value={value}
+            />
+          );
+        })}
+
+        <nav
+          className={
+            this.state.create_field_expanded
+              ? ''
+              : 'relative-navigation padded-top'
+          }
+        >
+          <CreateField
+            toggleExpand={this.handleCreateFieldExpand}
+            expanded={this.state.create_field_expanded}
+            handleCreate={this.handleCreateField}
+          />
+          {!this.state.create_field_expanded ? (
+            <button
+              onClick={() => this.handleFieldsExpand()}
+              type="button"
+              className="circular ui basic icon button"
+            >
+              <i className="arrow up icon" />
+            </button>
+          ) : null}
+        </nav>
       </div>
     );
   }

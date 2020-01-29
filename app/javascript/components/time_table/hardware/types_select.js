@@ -6,7 +6,7 @@ export default class TypesSelect extends Component {
   state = { types: [] }
 
   static propTypes = {
-    selected: PropTypes.string,
+    selected: PropTypes.string.isRequired,
     changeType: PropTypes.func.isRequired,
   }
 
@@ -18,8 +18,9 @@ export default class TypesSelect extends Component {
 
   render() {
     return (
-      <select value={this.props.selected} onChange={this.props.changeType} className="menu transition visible">
-        {this.state.types.map(type => <option className="item" key={type} value={type}>{I18n.t(`apps.hardware.types.${type}`)}</option>)}
+      <select name="type" onChange={this.props.changeType}>
+        <option value="" />
+        {this.state.types.map(type => <option value={type}>{I18n.t(`apps.hardware.types.${type}`)}</option>)}
       </select>
     );
   }

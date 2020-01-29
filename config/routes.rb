@@ -24,7 +24,7 @@ TimeTable::Application.routes.draw do
     end
     resources :hardwares, only: %i[index create destroy update] do
       get :types, on: :collection
-      resources :fields, controller: :hardware_fields, only: %i[create destroy]
+      resources :fields, controller: :hardware_fields, only: %i[create destroy update]
     end
     resources :users, only: %i[index show create update]
     resources :accounting_periods do
@@ -67,6 +67,6 @@ TimeTable::Application.routes.draw do
     get :project, on: :collection
   end
 
-  get '/'         => 'home#index', constraints: { format: :html }
-  get '*url'      => 'home#index', constraints: { format: :html }
+  get '/' => 'home#index', :constraints => { format: :html }
+  get '*url' => 'home#index', :constraints => { format: :html }
 end
